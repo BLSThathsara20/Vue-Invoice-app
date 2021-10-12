@@ -34,7 +34,7 @@ export default {
   min-height: 100vh;
   flex-direction: column;
   @media (min-width: 900px) {
-    flex-direction: row;
+    flex-direction: row !important;
   }
 
   .app-content{
