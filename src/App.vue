@@ -3,6 +3,9 @@
   <div v-if="!mobile" class="app flex flex-column">
     <Navigation/>
     <div class="app-content flex flex-column">
+      <transition name="invoice">
+        <InvoiceModel v-if="invoiceModel" />
+      </transition>
       <router-view />
     </div>
   </div>
@@ -14,7 +17,9 @@
 </template>
 
 <script>
-import Navigation from './components/Navigation'
+import { mapState } from "vuex";
+import Navigation from './components/Navigation';
+import InvoiceModel from "./components/InvoiceModel";
 export default {
   data(){
     return {
@@ -22,7 +27,8 @@ export default {
     };
   },
   components: {
-    Navigation
+    Navigation,
+    InvoiceModel,
   },
   created(){
     this.checkScreen();
@@ -38,6 +44,9 @@ export default {
       this.mobile = false;
     },
   },
+  computed:{
+    ...mapState(['invoiceModel'])
+  }
 };
 </script>
 
@@ -76,6 +85,18 @@ export default {
     p{
       margin-top: 16px;
     }
+  }
+
+  // Animated invoice
+
+  .invoice-enter-active,
+  .invoice-leave-active{
+    transition: 0.8s ease all;
+  }
+
+  .invoice-enter-from,
+  .invoice-leave-to{
+    transform: translateX(-700px);
   }
 
 button,
